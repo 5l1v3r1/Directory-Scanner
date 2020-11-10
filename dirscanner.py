@@ -6,21 +6,21 @@ url = input("Url'i Girin: ")
 url = url.replace(" ", "").split(":") # url'ı : işareti ile ayırır 
 webAddr = url[1].split("/")
 
-zamanAsımı = 10 #saniye başına bağlantı sayısı (saniye başına dizin tarama)
-portNumarası = 0
+zamanAsimi = 10 #saniye başına bağlantı sayısı (saniye başına dizin tarama)
+portNumarasi = 0
 
 if url[0] == "http": #http veya https protokolüne göre port numarası atanır
-    portNumarası = 80
+    portNumarasi = 80
 elif url[0] == "https":
-    portNumarası = 443
+    portNumarasi = 443
 
 serverIP = socket.gethostbyname(webAddr[2]) #IP adresini çözümler
 print("Hedef IP=", serverIP)
 
 try:
     baglan = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    baglan.settimeout(zamanAsımı)
-    serverDurum = baglan.connect_ex((serverIP, portNumarası))
+    baglan.settimeout(zamanAsimi)
+    serverDurum = baglan.connect_ex((serverIP, portNumarasi))
 
     if serverDurum == 0:
         kelimeListesi = input("Dizin taramak için kelime listesinin dosya yolunu belirtiniz= ")
@@ -33,9 +33,9 @@ try:
     baglan.close()
 
     for kelime in dosyaIcerigi:
-        if portNumarası == 443:
+        if portNumarasi == 443:
             dizin = "https://" + webAddr[2] +"/"+ kelime
-        elif portNumarası == 80:
+        elif portNumarasi == 80:
             dizin = "http://" + webAddr[2] +"/"+ kelime
 
         istek = requests.get(dizin)
